@@ -65,6 +65,8 @@ class HomeViewController: UIViewController {
 
     ])
     
+    private var menuItems:[MenuItem] = []
+    
     private var sections:[Sections]? = nil
     
     //MARK: - IBOutlets
@@ -78,8 +80,10 @@ class HomeViewController: UIViewController {
     }
     
     private func setupOnce(){
+        setupNavBar()
         registerTableViewCells()
         setupTableView()
+        self.menuItems = menu.menuItems
         reload()
     }
     
@@ -95,11 +99,172 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+    
+    func addMenuItemAlert() {
+        let alertController = UIAlertController(title: "Add New Menu Item", message: nil, preferredStyle: .alert)
+        
+        // Add text fields to the alert
+        alertController.addTextField { textField in
+            textField.placeholder = "Name"
+        }
+        alertController.addTextField { textField in
+            textField.placeholder = "Description"
+        }
+     
+        alertController.addTextField { textField in
+            textField.placeholder = "Price"
+            textField.keyboardType = .decimalPad // Set keyboard type to number with a decimal point
+        }
+        alertController.addTextField { textField in
+            textField.placeholder = "Category"
+            textField.keyboardType = .numberPad // Set keyboard type to number
+        }
+        
+        // Create the "Add" action
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
+            guard let nameTextField = alertController.textFields?[0],
+                  let descriptionTextField = alertController.textFields?[1],
+                  let priceTextField = alertController.textFields?[2],
+                  let categoryTextField = alertController.textFields?[3],
+                  let name = nameTextField.text,
+                  let description = descriptionTextField.text,
+                  let price = Double(priceTextField.text ?? ""),
+                  let categoryInt = Int(categoryTextField.text ?? "") else {
+                // Error handling if any of the required fields are empty or invalid
+                return
+            }
+            
+            // Ensure the category is limited to a maximum of 3
+            let category = max(min(categoryInt, 3), 1)
+            
+            // Create a new MenuItem using the user input
+            let newMenuItem = MenuItem(id: self.menu.menuItems.count + 1, // Use menuItemCounter for ID
+                                       name: name,
+                                       description: description,
+                                       imageName: "menu-item-placeholder",
+                                       price: price,
+                                       stars: .NoStars, // Using a switch for boolean values
+                                       liked: false, // Using a switch for boolean values
+                                       category: category)
+            
+            
+            // Add the new MenuItem to the Menu object
+            do {
+                try self.menu.addMenuItem(newMenuItem)
+                self.reload()
+            } catch {
+                // Handle error if the item already exists in the menu
+                print("Error: \(error)")
+            }
+        }
+        
+        // Create the "Cancel" action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        // Add actions to the alert controller
+        alertController.addAction(addAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the alert controller
+        // Assuming you have a reference to your view controller, let's call it "viewController"
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func presentFilterActionSheet() {
+        self.menuItems = menu.menuItems
+        let actionSheet = UIAlertController(title: "Filter Options", message: nil, preferredStyle: .actionSheet)
+        
+        // Filter by liked status
+        let likedAction = UIAlertAction(title: "Liked", style: .default) { [weak self] _ in
+            self?.filterMenuItems(byLiked: true)
+        }
+        actionSheet.addAction(likedAction)
+        
+        let notLikedAction = UIAlertAction(title: "Not Liked", style: .default) { [weak self] _ in
+            self?.filterMenuItems(byLiked: false)
+        }
+        actionSheet.addAction(notLikedAction)
+        
+        // Filter by category
+        let category1Action = UIAlertAction(title: "Category 1", style: .default) { [weak self] _ in
+            self?.filterMenuItems(byCategory: 1)
+        }
+        actionSheet.addAction(category1Action)
+        
+        let category2Action = UIAlertAction(title: "Category 2", style: .default) { [weak self] _ in
+            self?.filterMenuItems(byCategory: 2)
+        }
+        actionSheet.addAction(category2Action)
+        
+        let category3Action = UIAlertAction(title: "Category 3", style: .default) { [weak self] _ in
+            self?.filterMenuItems(byCategory: 3)
+        }
+        actionSheet.addAction(category3Action)
+        
+        // Filter by price
+        let priceAscendingAction = UIAlertAction(title: "Price - Low to High", style: .default) { [weak self] _ in
+            self?.sortMenuItems(byPriceAscending: true)
+        }
+        actionSheet.addAction(priceAscendingAction)
+        
+        let priceDescendingAction = UIAlertAction(title: "Price - High to Low", style: .default) { [weak self] _ in
+            self?.sortMenuItems(byPriceAscending: false)
+        }
+        actionSheet.addAction(priceDescendingAction)
+        
+        // Cancel action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionSheet.addAction(cancelAction)
+        
+        // Present the action sheet
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    // Function to filter menu items by liked status
+    func filterMenuItems(byLiked liked: Bool) {
+        let filteredItems = menuItems.filter { $0.liked == liked }
+        self.menuItems = filteredItems
+        self.reload()
+    }
+    
+    // Function to filter menu items by category
+    func filterMenuItems(byCategory category: Int) {
+        let filteredItems = menuItems.filter { $0.category == category }
+        // Use the filteredItems array as needed, e.g., update the UI with the filtered data.
+        self.menuItems = filteredItems
+        self.reload()
+    }
+    
+    // Function to sort menu items by price
+    func sortMenuItems(byPriceAscending ascending: Bool) {
+        let sortedItems = menuItems.sorted { ascending ? $0.price < $1.price : $0.price > $1.price }
+        self.menuItems = sortedItems
+        self.reload()
+        
+    }
+    
 }
 //MARK: - SetupOnce
 extension HomeViewController{
     private func registerTableViewCells(){
         
+    }
+    
+    private func setupNavBar(){
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        let filterButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(filterButtonTapped))
+        navigationItem.setRightBarButtonItems([addButton,filterButton], animated: true)
+        
+    }
+    
+    @objc private func addButtonTapped() {
+        addMenuItemAlert()
+    }
+    
+    @objc private func filterButtonTapped() {
+        presentFilterActionSheet()
     }
     
     private func setupTableView(){
@@ -129,22 +294,22 @@ extension HomeViewController{
     private func getItemCount(for section:Sections) -> Int{
         switch section{
         case .Liked:
-            return menu.menuItems.filter({$0.liked == true}).count
+            return menuItems.filter({$0.liked == true}).count
         case .Rated:
-            return menu.menuItems.filter({$0.stars != .NoStars}).count
+            return menuItems.filter({$0.stars != .NoStars}).count
         default:
-            return menu.menuItems.filter({$0.category == section.rawValue}).count
+            return menuItems.filter({$0.category == section.rawValue}).count
         }
     }
     
     private func getItemCount(for section:Sections, indexPath:IndexPath) -> MenuItem{
         switch section{
         case .Liked:
-            return menu.menuItems.filter({$0.liked == true})[indexPath.row]
+            return menuItems.filter({$0.liked == true})[indexPath.row]
         case .Rated:
-            return menu.menuItems.filter({$0.stars != .NoStars})[indexPath.row]
+            return menuItems.filter({$0.stars != .NoStars})[indexPath.row]
         default:
-            return menu.menuItems.filter({$0.category == section.rawValue})[indexPath.row]
+            return menuItems.filter({$0.category == section.rawValue})[indexPath.row]
         }
     }
     
