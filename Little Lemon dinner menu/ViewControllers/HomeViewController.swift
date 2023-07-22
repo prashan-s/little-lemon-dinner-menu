@@ -188,17 +188,17 @@ class HomeViewController: UIViewController {
         actionSheet.addAction(notLikedAction)
         
         // Filter by category
-        let category1Action = UIAlertAction(title: "Category 1", style: .default) { [weak self] _ in
+        let category1Action = UIAlertAction(title: "Savoury", style: .default) { [weak self] _ in
             self?.filterMenuItems(byCategory: 1)
         }
         actionSheet.addAction(category1Action)
         
-        let category2Action = UIAlertAction(title: "Category 2", style: .default) { [weak self] _ in
+        let category2Action = UIAlertAction(title: "Desert", style: .default) { [weak self] _ in
             self?.filterMenuItems(byCategory: 2)
         }
         actionSheet.addAction(category2Action)
         
-        let category3Action = UIAlertAction(title: "Category 3", style: .default) { [weak self] _ in
+        let category3Action = UIAlertAction(title: "Dishes", style: .default) { [weak self] _ in
             self?.filterMenuItems(byCategory: 3)
         }
         actionSheet.addAction(category3Action)
@@ -254,7 +254,7 @@ extension HomeViewController{
     
     private func setupNavBar(){
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
-        let filterButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(filterButtonTapped))
+        let filterButton = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(filterButtonTapped))
         navigationItem.setRightBarButtonItems([addButton,filterButton], animated: true)
         
     }
