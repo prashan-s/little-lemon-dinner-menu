@@ -13,11 +13,12 @@
 		14D2006F2A6B76770098F9DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D2006D2A6B76770098F9DF /* Main.storyboard */; };
 		14D200712A6B767A0098F9DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D200702A6B767A0098F9DF /* Assets.xcassets */; };
 		14D200742A6B767A0098F9DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D200722A6B767A0098F9DF /* LaunchScreen.storyboard */; };
-		14D2007F2A6B767A0098F9DF /* Little_Lemon_dinner_menuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D2007E2A6B767A0098F9DF /* Little_Lemon_dinner_menuTests.swift */; };
+		14D2007F2A6B767A0098F9DF /* Menu_Item_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D2007E2A6B767A0098F9DF /* Menu_Item_Tests.swift */; };
 		14D200892A6B767A0098F9DF /* Little_Lemon_dinner_menuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D200882A6B767A0098F9DF /* Little_Lemon_dinner_menuUITests.swift */; };
 		14D2008B2A6B767A0098F9DF /* Little_Lemon_dinner_menuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D2008A2A6B767A0098F9DF /* Little_Lemon_dinner_menuUITestsLaunchTests.swift */; };
 		14D2009D2A6B77EB0098F9DF /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D2009C2A6B77EB0098F9DF /* MenuItem.swift */; };
 		14D2009F2A6B79D90098F9DF /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D2009E2A6B79D90098F9DF /* Menu.swift */; };
+		14D200A12A6B7E490098F9DF /* Menu_Class_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D200A02A6B7E490098F9DF /* Menu_Class_Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,12 +48,13 @@
 		14D200732A6B767A0098F9DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14D200752A6B767A0098F9DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14D2007A2A6B767A0098F9DF /* Little Lemon dinner menuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Little Lemon dinner menuTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		14D2007E2A6B767A0098F9DF /* Little_Lemon_dinner_menuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Little_Lemon_dinner_menuTests.swift; sourceTree = "<group>"; };
+		14D2007E2A6B767A0098F9DF /* Menu_Item_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu_Item_Tests.swift; sourceTree = "<group>"; };
 		14D200842A6B767A0098F9DF /* Little Lemon dinner menuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Little Lemon dinner menuUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D200882A6B767A0098F9DF /* Little_Lemon_dinner_menuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Little_Lemon_dinner_menuUITests.swift; sourceTree = "<group>"; };
 		14D2008A2A6B767A0098F9DF /* Little_Lemon_dinner_menuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Little_Lemon_dinner_menuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		14D2009C2A6B77EB0098F9DF /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		14D2009E2A6B79D90098F9DF /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		14D200A02A6B7E490098F9DF /* Menu_Class_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu_Class_Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +119,8 @@
 		14D2007D2A6B767A0098F9DF /* Little Lemon dinner menuTests */ = {
 			isa = PBXGroup;
 			children = (
-				14D2007E2A6B767A0098F9DF /* Little_Lemon_dinner_menuTests.swift */,
+				14D2007E2A6B767A0098F9DF /* Menu_Item_Tests.swift */,
+				14D200A02A6B7E490098F9DF /* Menu_Class_Tests.swift */,
 			);
 			path = "Little Lemon dinner menuTests";
 			sourceTree = "<group>";
@@ -316,7 +319,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14D2007F2A6B767A0098F9DF /* Little_Lemon_dinner_menuTests.swift in Sources */,
+				14D2007F2A6B767A0098F9DF /* Menu_Item_Tests.swift in Sources */,
+				14D200A12A6B7E490098F9DF /* Menu_Class_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

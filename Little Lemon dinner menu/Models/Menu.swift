@@ -33,6 +33,10 @@ class Menu{
     //MARK: - Variables
     private(set) var menuItems:[MenuItem] = []
     
+    
+    init(menuItems: [MenuItem] = []) {
+        self.menuItems = menuItems
+    }
 }
 
 extension Menu{
@@ -47,7 +51,7 @@ extension Menu{
     
     public func removeMenuItem(menuItemId:Int) throws{
         if let index = menuItems.firstIndex(where: { $0.id == menuItemId}) {
-            
+            menuItems.remove(at: index)
         }else{
             throw MenuErrors.CannotFindThatItem
         }

@@ -53,7 +53,7 @@ struct MenuItem{
     
 }
 
-extension MenuItem:Hashable{
+extension MenuItem:Equatable{
     static func == (lhs: MenuItem, rhs: MenuItem) -> Bool {
         return lhs.id == rhs.id
     }
