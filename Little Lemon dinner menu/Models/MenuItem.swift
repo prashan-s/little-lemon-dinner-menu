@@ -14,7 +14,7 @@ struct MenuItem{
     
     
     //MARK: - Enum
-    enum Stars{
+    enum Stars:Equatable{
         case NoStars
         case Stars(Int)
         
@@ -46,6 +46,7 @@ struct MenuItem{
     var name:String
     var description:String
     var imageName:String
+    var price:Double = 0.0
     var stars:Stars = .NoStars
     var liked:Bool = false
    

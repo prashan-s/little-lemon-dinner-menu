@@ -11,11 +11,12 @@
         <!--Navigation Controller-->
         <scene sceneID="pve-jb-s54">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" id="adH-8a-qnl" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="adH-8a-qnl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qv0-lb-e9Z">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="compactScrollEdgeAppearance"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ost-gf-Vb1">
@@ -54,27 +55,47 @@
                     <navigationItem key="navigationItem" title="Home" prompt="Welcome!" largeTitleDisplayMode="always" id="UNA-Bl-hBs"/>
                     <connections>
                         <outlet property="tableView" destination="PNr-JN-zF6" id="YN3-hJ-BXe"/>
+                        <segue destination="0Od-Fx-Ma6" kind="show" identifier="showDetail" id="28u-tq-k7v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="987" y="4"/>
         </scene>
-        <!--Home-->
+        <!--Detail-->
         <scene sceneID="ty6-QZ-lvp">
             <objects>
-                <viewController id="0Od-Fx-Ma6" customClass="ViewController" customModule="Little_Lemon_dinner_menu" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="pageSheet" id="0Od-Fx-Ma6" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jr6-GR-uXb">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P9C-N3-S5p">
+                                <rect key="frame" x="50" y="179.66666666666663" width="293" height="293"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="P9C-N3-S5p" secondAttribute="height" multiplier="1:1" id="Q5q-Nc-IC7"/>
+                                </constraints>
+                            </imageView>
+                            <stackView verifyAmbiguity="ignoreSizes" opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bHW-Q7-5D6">
+                                <rect key="frame" x="50" y="512" width="293" height="217"/>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="ykO-at-psW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bHW-Q7-5D6" firstAttribute="top" secondItem="P9C-N3-S5p" secondAttribute="bottom" constant="20" id="1dc-eq-LRC"/>
+                            <constraint firstItem="bHW-Q7-5D6" firstAttribute="leading" secondItem="ykO-at-psW" secondAttribute="leading" constant="50" id="3AT-XI-emh"/>
+                            <constraint firstItem="ykO-at-psW" firstAttribute="trailing" secondItem="bHW-Q7-5D6" secondAttribute="trailing" constant="50" id="3rc-ni-Vqc"/>
+                            <constraint firstItem="P9C-N3-S5p" firstAttribute="centerY" secondItem="Jr6-GR-uXb" secondAttribute="centerY" constant="-100" id="64O-pJ-4Se"/>
+                            <constraint firstItem="P9C-N3-S5p" firstAttribute="centerX" secondItem="Jr6-GR-uXb" secondAttribute="centerX" id="N1s-s0-ln6"/>
+                            <constraint firstItem="ykO-at-psW" firstAttribute="trailing" secondItem="P9C-N3-S5p" secondAttribute="trailing" constant="50" id="W21-pH-Njj"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" prompt="Welcome!" largeTitleDisplayMode="always" id="MUn-sL-Pa4"/>
+                    <navigationItem key="navigationItem" title="Detail" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" style="editor" id="MUn-sL-Pa4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgm-1D-8Wb" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1853" y="4"/>
+            <point key="canvasLocation" x="1852.6717557251907" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>
