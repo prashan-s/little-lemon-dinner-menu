@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Little Lemon dinner menu
+//  Little Lemon Dishes menu
 //
 //  Created by Prashan Samarathunge on 2023-07-22.
 //
@@ -16,22 +16,27 @@ class HomeViewController: UIViewController {
     
     //MARK: - Enum
     enum Segues:String{
-        case showDetailView = "showDetail"
+        case ShowDetailView = "showDetail"
     }
     enum Sections:Int,CaseIterable{
-        case Liked
-        case Rated
-        case Categories
+        case Liked = -1
+        case Rated = -2
+        case Savoury = 1
+        case Desert = 2
+        case Dishes = 3
         
         var displayValue:String{
             switch self{
             case .Liked: return "Liked"
             case .Rated: return "Rated"
-            case .Categories: return "Categories"
+            case .Savoury: return "Savoury"
+            case .Desert: return "Desert"
+            case .Dishes: return "Dishes"
+                
             }
         }
     }
-    
+
     
     //MARK: - Classes
     
@@ -47,11 +52,17 @@ class HomeViewController: UIViewController {
     
     //MARK: - Variables
     var menu:Menu = Menu(menuItems: [
-        .init(id: 1, name: "Test1", description: "TestDesc1", imageName: "menu-item-placeholder",liked: true),
-        .init(id: 2, name: "Test2", description: "TestDesc2", imageName: "menu-item-placeholder"),
-        .init(id: 3, name: "Test3", description: "TestDesc3", imageName: "menu-item-placeholder",stars: .Stars(1)),
-        .init(id: 4, name: "Test4", description: "TestDesc4", imageName: "menu-item-placeholder"),
-        
+        .init(id: 1, name: "Classic Margherita Pizza", description: "A traditional Italian pizza with tomato sauce, mozzarella cheese, and fresh basil leaves.", imageName: "menu-item-placeholder", price: 20.0, stars: .NoStars, liked: true, category: 1),
+        .init(id: 2, name: "Decadent Chocolate Brownie", description: "Indulge in a rich and moist chocolate brownie topped with a scoop of vanilla ice cream.", imageName: "menu-item-placeholder", price: 25.0, stars: .Stars(1), liked: false, category: 2),
+        .init(id: 3, name: "Savory Chicken Alfredo", description: "Tender grilled chicken served over fettuccine pasta with creamy Alfredo sauce.", imageName: "menu-item-placeholder", price: 15.0, stars: .Stars(2), liked: true, category: 1),
+        .init(id: 4, name: "Chef's Special Risotto", description: "A delectable risotto prepared with seasonal vegetables and Parmesan cheese.", imageName: "menu-item-placeholder", price: 30.0, stars: .NoStars, liked: false, category: 3),
+        .init(id: 5, name: "Refreshing Berry Sorbet", description: "Enjoy a refreshing sorbet made from a blend of seasonal berries.", imageName: "menu-item-placeholder", price: 18.0, stars: .NoStars, liked: true, category: 2),
+        .init(id: 6, name: "Spicy Cajun Shrimp", description: "Succulent shrimp seasoned with Cajun spices served with rice and grilled vegetables.", imageName: "menu-item-placeholder", price: 22.0, stars: .Stars(3), liked: false, category: 1),
+        .init(id: 7, name: "Grilled Mediterranean Platter", description: "A delightful platter featuring an assortment of grilled vegetables, hummus, and pita bread.", imageName: "menu-item-placeholder", price: 16.0, stars: .NoStars, liked: true, category: 3),
+        .init(id: 8, name: "Tiramisu Delight", description: "An irresistible Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cheese.", imageName: "menu-item-placeholder", price: 28.0, stars: .Stars(5), liked: false, category: 2),
+        .init(id: 9, name: "Mouthwatering Beef Burger", description: "Savor the juiciness of a perfectly grilled beef patty topped with cheese, lettuce, and pickles.", imageName: "menu-item-placeholder", price: 21.0, stars: .NoStars, liked: true, category: 1),
+        .init(id: 10, name: "Lemon Garlic Roasted Chicken", description: "Tender roasted chicken infused with zesty lemon and garlic flavors.", imageName: "menu-item-placeholder", price: 17.0, stars: .NoStars, liked: false, category: 3)
+
     ])
     
     private var sections:[Sections]? = nil
@@ -75,6 +86,14 @@ class HomeViewController: UIViewController {
     private func reload(){
         self.sections = nil
         self.tableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Segues.ShowDetailView.rawValue{
+            if let vc = segue.destination as? HomeDetailViewController{
+                vc.menuItem = sender as! MenuItem
+            }
+        }
     }
 }
 //MARK: - SetupOnce
@@ -113,8 +132,8 @@ extension HomeViewController{
             return menu.menuItems.filter({$0.liked == true}).count
         case .Rated:
             return menu.menuItems.filter({$0.stars != .NoStars}).count
-        case .Categories:
-            return 0
+        default:
+            return menu.menuItems.filter({$0.category == section.rawValue}).count
         }
     }
     
@@ -124,8 +143,8 @@ extension HomeViewController{
             return menu.menuItems.filter({$0.liked == true})[indexPath.row]
         case .Rated:
             return menu.menuItems.filter({$0.stars != .NoStars})[indexPath.row]
-        case .Categories:
-            return .init(id: 1, name: "", description: "", imageName: "")
+        default:
+            return menu.menuItems.filter({$0.category == section.rawValue})[indexPath.row]
         }
     }
     
@@ -173,13 +192,17 @@ extension HomeViewController:UITableViewDataSource{
         configuration.imageToTextPadding = 5
         
         cell.contentConfiguration = configuration
+        cell.selectionStyle = .none
+        cell.separatorInset.left = 20
         
-        cell.backgroundColor = indexPath.row % 2 == 0 ? .red : .gray
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Segues.showDetailView.rawValue, sender: nil)
+        let sec = getSections()[indexPath.section]
+        let item = getItemCount(for: sec, indexPath: indexPath)
+        
+        performSegue(withIdentifier: Segues.ShowDetailView.rawValue, sender: item)
     }
     
 }

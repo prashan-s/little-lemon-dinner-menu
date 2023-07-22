@@ -49,7 +49,7 @@ struct MenuItem{
     var price:Double = 0.0
     var stars:Stars = .NoStars
     var liked:Bool = false
-   
+    var category:Int
     
     
 }

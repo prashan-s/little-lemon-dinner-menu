@@ -9,21 +9,49 @@ import UIKit
 
 class HomeDetailViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    //MARK: TypeAlias
     
+    
+    //MARK: - Enum
+    
+    
+    
+    //MARK: - Classes
+    
+    
+    
+    //MARK: - Structs
+    
+    
+    
+    //MARK: - Constants
+    
+    
+    
+    //MARK: - Variables
+    var menuItem:MenuItem!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    
+    @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var lblRatings: UILabel!
+    @IBOutlet weak var lblLiked: UILabel!
+    
+    //MARK: - IBOutlets
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var stackView: UIStackView!
+    
+    
+    
+    //MARK: - VC Life Cycle
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        self.imageView.image = .init(named: menuItem.imageName)
+        
+        self.lblName.text = menuItem.name
+        self.lblDescription.text = menuItem.description
+        self.lblPrice.text = "$ " + String(menuItem.price)
+        self.lblRatings.text = menuItem.stars.description
+        self.lblLiked.text = menuItem.liked ? "Liked" : "Not Liked"
     }
-    */
-
 }
